@@ -1,0 +1,17 @@
+//
+//  StateLoader.swift
+//  PopulationStat
+//
+//  Created by Inna Chystiakova on 14/08/2024.
+//
+
+import Foundation
+
+public enum StateFeedResult<PopulationError> {
+    case success([StateItem])
+    case failure(PopulationError)
+}
+
+public protocol StateLoader {
+    func load(completion: @escaping (StateFeedResult<PopulationError>) -> Void)
+}
