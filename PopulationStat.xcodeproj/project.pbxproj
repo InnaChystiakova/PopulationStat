@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B3EFC8152C6CA92D002FE031 /* PopulationStatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EFC8142C6CA92D002FE031 /* PopulationStatApp.swift */; };
-		B3EFC8172C6CA92D002FE031 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EFC8162C6CA92D002FE031 /* ContentView.swift */; };
+		B3EFC8172C6CA92D002FE031 /* PopulationStatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EFC8162C6CA92D002FE031 /* PopulationStatView.swift */; };
 		B3EFC8192C6CA92D002FE031 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3EFC8182C6CA92D002FE031 /* Assets.xcassets */; };
 		B3EFC81C2C6CA92D002FE031 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3EFC81B2C6CA92D002FE031 /* Preview Assets.xcassets */; };
 		B3EFC8262C6CA92D002FE031 /* PopulationStatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EFC8252C6CA92D002FE031 /* PopulationStatTests.swift */; };
@@ -51,7 +51,7 @@
 /* Begin PBXFileReference section */
 		B3EFC8112C6CA92D002FE031 /* PopulationStat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopulationStat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3EFC8142C6CA92D002FE031 /* PopulationStatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopulationStatApp.swift; sourceTree = "<group>"; };
-		B3EFC8162C6CA92D002FE031 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B3EFC8162C6CA92D002FE031 /* PopulationStatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopulationStatView.swift; sourceTree = "<group>"; };
 		B3EFC8182C6CA92D002FE031 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3EFC81B2C6CA92D002FE031 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3EFC8212C6CA92D002FE031 /* PopulationStatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopulationStatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,7 +187,7 @@
 		B3EFC85A2C6CCB07002FE031 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B3EFC8162C6CA92D002FE031 /* ContentView.swift */,
+				B3EFC8162C6CA92D002FE031 /* PopulationStatView.swift */,
 				B3EFC8562C6CC4ED002FE031 /* PopulationDetailsView.swift */,
 			);
 			path = View;
@@ -362,7 +362,7 @@
 				B3EFC84D2C6CB5A0002FE031 /* URLSessionHTTPClient.swift in Sources */,
 				B3EFC8412C6CA97F002FE031 /* StateLoader.swift in Sources */,
 				B3EFC8452C6CB547002FE031 /* NationItem.swift in Sources */,
-				B3EFC8172C6CA92D002FE031 /* ContentView.swift in Sources */,
+				B3EFC8172C6CA92D002FE031 /* PopulationStatView.swift in Sources */,
 				B3EFC8152C6CA92D002FE031 /* PopulationStatApp.swift in Sources */,
 				B3EFC84B2C6CB585002FE031 /* HTTPClient.swift in Sources */,
 				B3EFC8512C6CB5CC002FE031 /* PopulationLoader.swift in Sources */,

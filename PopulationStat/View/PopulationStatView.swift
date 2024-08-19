@@ -7,20 +7,25 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct PopulationStatView: View {
     @StateObject private var viewModel = PopulationViewModel()
+    @State private var selectedYear: String?
     
     var body: some View {
-        NavigationView {
+        NavigationSplitView {
             VStack {
-                List{
+                List {
                     ForEach($viewModel.nationData, id: \.self) { $data in
-                        NavigationLink(destination: PopulationDetailsView(year: data.year ?? "")) {
-                            Text(data.year ?? "Default")
-                                .font(.headline)
-                            let populationString = String(data.population ?? 0)
-                            Text("Population: \(populationString)")
-                                .font(.subheadline)
+                        NavigationLink() {
+                            PopulationDetailsView(year: data.year ?? "")
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(data.year ?? "Default")
+                                    .font(.headline)
+                                let populationString = String(data.population ?? 0)
+                                Text("Population: \(populationString)")
+                                    .font(.subheadline)
+                            }
                         }
                     }
                     .listRowBackground(Color.clear)
@@ -37,6 +42,11 @@ struct ContentView: View {
                 .onAppear {
                     viewModel.fetchNationData()
                 }
+                .onChange(of: viewModel.nationData) {
+                    if selectedYear == nil, let firstYear = viewModel.nationData.first?.year {
+                        selectedYear = firstYear
+                    }
+                }
                 .refreshable {
                     viewModel.fetchNationData()
                 }
@@ -52,7 +62,15 @@ struct ContentView: View {
                 .navigationTitle("Population Data")
                 .listStyle(.plain)
                 .navigationBarTitleDisplayMode(.automatic)
-                .tint(.white)
+                .tint(.clear)
+            }
+        } detail: {
+            if let selectedYear = selectedYear {
+                PopulationDetailsView(year: selectedYear)
+            } else {
+                Text("Please select a year")
+                    .font(.largeTitle)
+                    .foregroundColor(.gray)
             }
         }
     }
@@ -60,6 +78,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        PopulationStatView()
     }
 }

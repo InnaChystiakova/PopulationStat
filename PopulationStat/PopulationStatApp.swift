@@ -11,7 +11,7 @@ import SwiftUI
 struct PopulationStatApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PopulationStatView()
         }
     }
 }
