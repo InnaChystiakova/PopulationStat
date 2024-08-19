@@ -7,7 +7,7 @@
 
 import Foundation
 
-    internal final class StateItemMapper {
+internal final class StateItemMapper {
     private struct StateFeed: Decodable {
         let data: [Item]
         
@@ -24,10 +24,6 @@ import Foundation
         let population: Int?
         let slugState: String?
         
-        var item: StateItem {
-            return StateItem(idState: idState, state: state, idYear: idYear, year: year, population: population, slugState: slugState)
-        }
-        
         private enum CodingKeys: String, CodingKey {
             case idState = "ID State"
             case state = "State"
@@ -36,11 +32,15 @@ import Foundation
             case population = "Population"
             case slugState = "Slug State"
         }
+        
+        var item: StateItem {
+            return StateItem(idState: idState, state: state, idYear: idYear, year: year, population: population, slugState: slugState)
+        }
     }
     
     private static var OK_200: Int { return 200 }
     
-    internal static func map(_ data: Data, from response: HTTPURLResponse) -> PopulationLoader.StateResult {
+    internal static func map(_ data: Data, from response: HTTPURLResponse) -> StateResult {
         guard response.statusCode == OK_200 else {
             return .failure(.invalidData)
         }
@@ -50,7 +50,7 @@ import Foundation
             return .success(root.stateFeed)
         } catch {
             print("Decoding error: \(error)")
-            return .failure(.invalidData)
+            return .failure(.noData)
         }
     }
 }

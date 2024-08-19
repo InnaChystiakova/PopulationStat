@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum PopulationLoaderResult {
+    case nationResult(NationResult)
+    case stateResult(StateResult)
+}
+
 public final class PopulationLoader {
     private let url: URL
     private let client: URLSessionHTTPClient
@@ -16,27 +21,24 @@ public final class PopulationLoader {
         self.url = url
     }
     
-    public typealias StateResult = StateFeedResult<PopulationError>
-    public typealias NationResult = NationFeedResult<PopulationError>
-    
-    public func fetchNationData(completion: @escaping (NationResult) -> Void) {
+    public func fetchNationData(completion: @escaping (PopulationLoaderResult) -> Void) {
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                completion(NationItemMapper.map(data, from: response))
+                completion(.nationResult(NationItemMapper.map(data, from: response)))
             case .failure:
-                completion(.failure(PopulationError.connectivity))
+                completion(.nationResult(.failure(PopulationError.connectivity)))
             }
         }
     }
     
-    public func fetchStateData(completion: @escaping (StateResult) -> Void) {
-        client.get(from: url) { result in            
+    public func fetchStateData(completion: @escaping (PopulationLoaderResult) -> Void) {
+        client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                completion(StateItemMapper.map(data, from: response))
+                completion(.stateResult(StateItemMapper.map(data, from: response)))
             case .failure:
-                completion(.failure(PopulationError.connectivity))
+                completion(.stateResult(.failure(PopulationError.connectivity)))
             }
         }
     }

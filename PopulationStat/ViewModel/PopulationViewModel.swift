@@ -15,40 +15,64 @@ class PopulationViewModel: ObservableObject {
     
     var errorMessage: String? = nil
     
-    private let networkService = PopulationNetworkService.shared
+    private let baseURL = "https://datausa.io/api/data"
     
     func fetchNationData() {
-        networkService.fetchNationData() { [weak self] result in
+        let urlString = "\(baseURL)?drilldowns=Nation&measures=Population"
+        guard let url = URL(string: urlString) else {
+            self.finishWithError(error: .invalidURL)
+            return
+        }
+        
+        let populationLoader = PopulationLoader.init(url: url, client: URLSessionHTTPClient(session: .shared))
+        populationLoader.fetchNationData() { [weak self] result in
             DispatchQueue.main.async {
                 self?.fetching = true
-                
-                switch result {
-                case .success(let data):
-                    self?.nationData = data
-                    self?.fetching = false
-                case .failure(let error):
-                    self?.errorMessage = error.errorDescription
-                    self?.showErrorAlert = true
-                    self?.fetching = false
-                }
+                self?.finishWithResult(result: result)
             }
         }
     }
     
     func fetchStateData(by year: String) {
-        networkService.fetchStateData(by: year) { [weak self] result in
+        let urlString = "\(baseURL)?drilldowns=State&measures=Population&year=\(year)"
+        guard let url = URL(string: urlString) else {
+            self.finishWithError(error: .invalidURL)
+            return
+        }
+        
+        let populationLoader = PopulationLoader.init(url: url, client: URLSessionHTTPClient(session: .shared))
+        populationLoader.fetchStateData() { [weak self] result in
             DispatchQueue.main.async {
                 self?.fetching = true
-                switch result {
-                case .success(let data):
-                    self?.stateData = data
-                    self?.fetching = false
-                case .failure(let error):
-                    self?.errorMessage = error.errorDescription
-                    self?.showErrorAlert = true
-                    self?.fetching = false
-                }
+                self?.finishWithResult(result: result)
             }
         }
+    }
+    
+    func finishWithResult(result: PopulationLoaderResult) {
+        switch result {
+        case .nationResult(let res):
+            switch res {
+            case .success(let data):
+                self.nationData = data
+                self.fetching = false
+            case .failure(let error):
+                self.finishWithError(error: error)
+            }
+        case .stateResult(let res):
+            switch res {
+            case .success(let data):
+                self.stateData = data
+                self.fetching = false
+            case .failure(let error):
+                self.finishWithError(error: error)
+            }
+        }
+    }
+
+    func finishWithError(error: PopulationError) {
+        self.errorMessage = error.errorDescription
+        self.showErrorAlert = true
+        self.fetching = false
     }
 }

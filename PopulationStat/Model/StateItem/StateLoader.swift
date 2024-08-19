@@ -15,3 +15,5 @@ public enum StateFeedResult<PopulationError> {
 public protocol StateLoader {
     func load(completion: @escaping (StateFeedResult<PopulationError>) -> Void)
 }
+
+public typealias StateResult = StateFeedResult<PopulationError>

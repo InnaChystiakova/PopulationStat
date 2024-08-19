@@ -11,6 +11,7 @@ public enum PopulationError: Swift.Error {
     case connectivity
     case invalidData
     case invalidURL
+    case noData
 }
 
 extension PopulationError: LocalizedError {
@@ -22,6 +23,8 @@ extension PopulationError: LocalizedError {
             return NSLocalizedString("Received invalid data. Please try again later.", comment: "")
         case .invalidURL:
             return NSLocalizedString("Invalid URL. Please contact support.", comment: "")
+        case .noData:
+            return NSLocalizedString("There is no any data by your request", comment: "")
         }
     }
 }

@@ -40,7 +40,7 @@ internal final class NationItemMapper {
     
     private static var OK_200: Int { return 200 }
     
-    internal static func map(_ data: Data, from response: HTTPURLResponse) -> PopulationLoader.NationResult {
+    internal static func map(_ data: Data, from response: HTTPURLResponse) -> NationResult {
         guard response.statusCode == OK_200 else {
             return .failure(.invalidData)
         }
