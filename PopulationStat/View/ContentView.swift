@@ -13,8 +13,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List(viewModel.nationData) { data in
-                    VStack(alignment: .leading) {
+                List{
+                    ForEach($viewModel.nationData, id: \.self) { $data in
                         NavigationLink(destination: PopulationDetailsView(year: data.year ?? "")) {
                             Text(data.year ?? "Default")
                                 .font(.headline)
@@ -23,8 +23,17 @@ struct ContentView: View {
                                 .font(.subheadline)
                         }
                     }
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
                 }
-                .navigationTitle("Population Data")
+                .overlay {
+                    if (viewModel.fetching) {
+                        ProgressView("Fetching data, please wait...")
+                            .progressViewStyle(
+                                CircularProgressViewStyle(tint: .accentColor)
+                            )
+                    }
+                }
                 .onAppear {
                     viewModel.fetchNationData()
                 }
@@ -38,6 +47,12 @@ struct ContentView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
+                .background(LinearGradient(gradient: Gradient(colors: [Color.yellow, Color.green]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    .ignoresSafeArea())
+                .navigationTitle("Population Data")
+                .listStyle(.plain)
+                .navigationBarTitleDisplayMode(.automatic)
+                .tint(.white)
             }
         }
     }

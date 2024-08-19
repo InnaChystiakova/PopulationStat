@@ -38,3 +38,14 @@ extension StateItem: Decodable {
         case slugState = "Slug State"
     }
 }
+
+extension StateItem: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(idState)
+        hasher.combine(state)
+        hasher.combine(idYear)
+        hasher.combine(year)
+        hasher.combine(population)
+        hasher.combine(slugState)
+    }
+}

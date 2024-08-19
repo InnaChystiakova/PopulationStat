@@ -37,3 +37,14 @@ extension NationItem: Decodable {
         case slugNation = "Slug Nation"
     }
 }
+
+extension NationItem: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(idNation)
+        hasher.combine(nation)
+        hasher.combine(idYear)
+        hasher.combine(year)
+        hasher.combine(population)
+        hasher.combine(slugNation)
+    }
+}

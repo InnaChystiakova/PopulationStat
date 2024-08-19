@@ -12,7 +12,7 @@ internal final class NationItemMapper {
         let data: [Item]
         
         var nationFeed: [NationItem] {
-            return data.map { $0.item}
+            return data.map { $0.item }
         }
     }
     
